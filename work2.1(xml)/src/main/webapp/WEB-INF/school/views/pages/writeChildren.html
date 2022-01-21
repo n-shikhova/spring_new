@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Children add Data Base</title>
+</head>
+<body>
+<table border="1">
+    <caption>Информация из БД "Children":</caption>
+    <thead>
+    <th>ID</th>
+    <th>ФИО</th>
+    <th>Возраст</th>
+    <th>Школа №</th>
+    <th>ФИО. Отец</th>
+    <th>ФИО. Мать</th>
+    </thead>
+    <div th:each="children : ${childrens}">
+        <tr>
+            <td align="center" th:text="${children.getId()}"></td>
+            <td align="center" th:text="${children.getFio()}"></td>
+            <td align="center" th:text="${children.getAge()}"></td>
+            <td align="center" th:text="${children.getSchool().getNumber()}"></td>
+            <td align="center" th:text="${children.getParent().getFio_father()}"></td>
+            <td align="center" th:text="${children.getParent().getFio_mother()}"></td>
+        </tr>
+    </div>
+</table>
+
+
+    <div>
+        <a href="http://localhost:8080/" text="1">Вернуться на домашнюю страницу =></a>
+    </div>
+    <div>
+        <p>------------------------------------------------------------------------</p>
+    </div>
+    <div>
+        <h4>Для добавления ребенка в базу данных, введите информацию:</h4>
+
+        <form class="group" th:method="POST" th:action="@{/writeChildren}" th:object="${children}">
+
+            <label for="fio">ФИО Ребенка:</label>
+            <br>
+            <input type="text" th:field="*{fio}" id="fio"/>
+            <br>
+            <br>
+
+            <label for="age">Возраст:</label>
+            <br>
+            <input type="text" th:field="*{age}" id="age"/>
+            <br>
+            <br>
+
+            <label>Выберете родителей:</label>
+            <br>
+            <select th:field="*{parent.id}">
+                <option th:each="parent : ${parents}" th:value="${parent.id}" th:text="${'Отец: ' + parent.getFio_father() + '; Мать: ' + parent.getFio_mother()}"></option>
+            </select>
+            <br>
+            <br>
+
+            <label>Выберете школу:</label>
+            <br>
+            <select th:field="*{school.id}">
+                <option th:each="school : ${schools}" th:value="${school.id}" th:text="${'Школа № ' + school.number}"></option>
+            </select>
+            <br>
+            <br>
+
+            <input type="submit" value="Добавить в базу данных!">
+
+        </form>
+
+
+    </div>
+    <br>
+    <div>
+        <a href="http://localhost:8080/logout" text="1">Выйти из системы и зайти под другим пользователем =></a>
+    </div>
+</body>
+</html>

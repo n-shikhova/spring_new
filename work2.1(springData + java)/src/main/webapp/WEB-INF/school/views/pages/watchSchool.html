@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>School Data Base</title>
+</head>
+<body>
+<table border="1">
+    <caption>Информация из БД "School":</caption>
+    <thead>
+    <th>ID</th>
+    <th>Школа №</th>
+    <th>Адрес</th>
+    </thead>
+    <div th:each="school : ${schools}">
+        <tr>
+            <td align="center" th:text="${school.getId()}"></td>
+            <td align="center" th:text="${school.getNumber()}"></td>
+            <td align="center" th:text="${school.getAddress().getAddress()}"></td>
+        </tr>
+    </div>
+</table>
+<div>
+    <a href="http://localhost:8080/" text="1">Вернуться на домашнюю страницу =></a>
+</div>
+<div>
+    <p>------------------------------------------------------------------------</p>
+</div>
+<div>
+    <a href="http://localhost:8080/logout" text="1">Выйти из системы и зайти под другим пользователем =></a>
+</div>
+</body>
+</html>

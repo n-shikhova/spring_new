@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>District Data Base</title>
+</head>
+<body>
+<table border="1">
+    <caption>Информация из БД "District":</caption>
+    <thead>
+    <th>ID</th>
+    <th>Название района</th>
+    </thead>
+    <div th:each="district : ${districts}">
+        <tr>
+            <td align="center" th:text="${district.getId()}"></td>
+            <td align="center" th:text="${district.getDistrict_name()}"></td>
+        </tr>
+    </div>
+</table>
+<div>
+    <a href="http://localhost:8080/" text="1">Вернуться на домашнюю страницу =></a>
+</div>
+<div>
+    <p>------------------------------------------------------------------------</p>
+</div>
+
+<div>
+    <a href="http://localhost:8080/logout" text="1">Выйти из системы и зайти под другим пользователем =></a>
+</div>
+</body>
+</html>

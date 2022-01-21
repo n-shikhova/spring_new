@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Parent address update</title>
+</head>
+<body>
+    <table border="1">
+        <caption>Информация из БД "Parent":</caption>
+        <thead>
+            <th>ID</th>
+            <th>ФИО. Отец</th>
+            <th>ФИО. Мать</th>
+            <th>Адрес места жительства</th>
+        </thead>
+        <div th:each="parent : ${parents}">
+            <tr>
+                <td align="center" th:text="${parent.getId()}"></td>
+                <td align="center" th:text="${parent.getFio_father()}"></td>
+                <td align="center" th:text="${parent.getFio_mother()}"></td>
+                <td align="center" th:text="${parent.getAddress().getAddress()}"></td>
+            </tr>
+        </div>
+    </table>
+    <table border="1">
+        <caption>Информация из БД "Address":</caption>
+        <thead>
+        <th>ID</th>
+        <th>Адрес</th>
+        <th>Район</th>
+        <th>Школа №</th>
+        </thead>
+        <div th:each="address : ${addresses}">
+            <tr>
+                <td align="center" th:text="${address.getId()}"></td>
+                <td align="center" th:text="${address.getAddress()}"></td>
+                <td align="center" th:text="${address.getDistrict().getDistrict_name()}"></td>
+                <td align="center" th:text="${address.getSchool().getNumber()}"></td>
+            </tr>
+        </div>
+    </table>
+
+    <div>
+        <a href="http://localhost:8080/" text="1">Вернуться на домашнюю страницу =></a>
+    </div>
+    <div>
+        <p>------------------------------------------------------------------------</p>
+    </div>
+    <div>
+        <h4>Изменение адреса проживания:</h4>
+
+        <form class="group" th:method="POST" th:action="@{/updateAddress}" th:object="${parent}" >
+            <label>Выберете родителей, адресс проживания которых необходимо сменить:</label>
+            <br>
+
+            <select th:field="*{id}">
+                <option th:each="parent : ${parents}" th:value="${parent.id}" th:text="${'Отец: ' + parent.getFio_father() + '; Мать: ' + parent.getFio_mother()}"></option>
+            </select>
+            <br>
+            <br>
+
+            <label>Выберете новый адрес проживания:</label>
+            <br>
+
+            <select th:field="*{address.id}">
+                <option th:each="address : ${addresses}" th:value="${address.id}" th:text="${address.getAddress()}"></option>
+            </select>
+            <br>
+            <br>
+
+            <input type="submit" value="Обновить данные!">
+
+        </form>
+
+
+    </div>
+    <br>
+    <div>
+        <a href="http://localhost:8080/logout" text="1">Выйти из системы и зайти под другим пользователем =></a>
+    </div>
+</body>
+</html>

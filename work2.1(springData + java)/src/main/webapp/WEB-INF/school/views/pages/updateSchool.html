@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Children school update</title>
+</head>
+<body>
+<table border="1">
+    <caption>Информация из БД "Children":</caption>
+    <thead>
+    <th>ID</th>
+    <th>ФИО</th>
+    <th>Возраст</th>
+    <th>Школа №</th>
+    <th>ФИО. Отец</th>
+    <th>ФИО. Мать</th>
+    </thead>
+    <div th:each="children : ${childrens}">
+        <tr>
+            <td align="center" th:text="${children.getId()}"></td>
+            <td align="center" th:text="${children.getFio()}"></td>
+            <td align="center" th:text="${children.getAge()}"></td>
+            <td align="center" th:text="${children.getSchool().getNumber()}"></td>
+            <td align="center" th:text="${children.getParent().getFio_father()}"></td>
+            <td align="center" th:text="${children.getParent().getFio_mother()}"></td>
+        </tr>
+    </div>
+</table>
+<table border="1">
+    <caption>Информация из БД "School":</caption>
+    <thead>
+    <th>ID</th>
+    <th>Школа №</th>
+    <th>Адрес</th>
+    </thead>
+    <div th:each="school : ${schools}">
+        <tr>
+            <td align="center" th:text="${school.getId()}"></td>
+            <td align="center" th:text="${school.getNumber()}"></td>
+            <td align="center" th:text="${school.getAddress().getAddress()}"></td>
+        </tr>
+    </div>
+</table>
+
+    <div>
+        <a href="http://localhost:8080/" text="1">Вернуться на домашнюю страницу =></a>
+    </div>
+    <div>
+        <p>------------------------------------------------------------------------</p>
+    </div>
+    <div>
+        <h4>Изменение учебного заведения:</h4>
+
+        <form class="group" th:method="POST" th:action="@{/updateSchool}" th:object="${children}">
+            <label>Выберете ребенка, учебное заведение которого необходимо изменить:</label>
+            <br>
+
+            <select th:field="*{id}">
+                <option th:each="children : ${childrens}" th:value="${children.id}" th:text="${children.getFio()}"></option>
+            </select>
+            <br>
+            <br>
+
+            <label>Выберете новое учебное заведение:</label>
+            <br>
+
+            <select th:field="*{school.id}">
+                <option th:each="school : ${schools}" th:value="${school.id}" th:text="${'Школа № ' + school.getNumber()}"></option>
+            </select>
+            <br>
+            <br>
+
+            <input type="submit" value="Обновить данные!">
+
+        </form>
+
+
+    </div>
+    <br>
+    <div>
+        <a href="http://localhost:8080/logout" text="1">Выйти из системы и зайти под другим пользователем =></a>
+    </div>
+</body>
+</html>
